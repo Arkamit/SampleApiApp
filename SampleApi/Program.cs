@@ -12,5 +12,6 @@ app.UseOpenApi();
 app.UseHttpsRedirection();
 
 app.AddRootEndpoints();
+app.AddMoviesEndpoints();
 
 app.Run();
