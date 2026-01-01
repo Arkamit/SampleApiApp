@@ -1,0 +1,43 @@
+﻿@page "/"
+@using SampleTestUI.Models
+@inject HttpClient http
+
+<PageTitle>Movies</PageTitle>
+
+<h1>All Movies</h1>
+
+@if (movies == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Director</th>
+                <th>Release Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in movies)
+            {
+                <tr>
+                    <td>@movie.Title</td>
+                    <td>@movie.Director</td>
+                    <td>@movie.ReleaseYear</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<MovieModel>? movies;
+
+    protected override async Task OnInitializedAsync()
+    {
+        movies = await http.GetFromJsonAsync<List<MovieModel>>("https://localhost:7248/movies");
+    }
+}
