@@ -2,7 +2,7 @@
 
 namespace SampleApi.Startup;
 
-public static class CoreConfig
+public static class CorsConfig
 {
     private const string AllowAllCorsPolicy = "AllowAll";
 
