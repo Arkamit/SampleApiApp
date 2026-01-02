@@ -11,6 +11,8 @@ app.UseOpenApi();
 
 app.UseHttpsRedirection();
 
+app.MapAllHealthChecks();
+
 app.ApplyCorsConfig();
 app.AddRootEndpoints();
 app.AddMoviesEndpoints();
