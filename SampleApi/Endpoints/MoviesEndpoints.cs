@@ -1,5 +1,4 @@
 ﻿using SampleApi.Data;
-using System.Diagnostics.CodeAnalysis;
 
 namespace SampleApi.Endpoints;
 public static class MoviesEndpoints
@@ -10,7 +9,7 @@ public static class MoviesEndpoints
         app.MapGet("/movies/{id}", LoadMovieById);
     }
 
-    private static IResult LoadAllMovies(MoviesData data, string? genre, string? search)
+    private static async Task<IResult> LoadAllMovies(MoviesData data, string? genre, string? search, int? delay)
     {
         try
         {
@@ -31,6 +30,17 @@ public static class MoviesEndpoints
                 );
             }
 
+            if (delay is not null)
+            {
+                // Max delay of 5 minutes (300000 ms)
+                if (delay > 300000)
+                {
+                    delay = 300000;
+                }
+
+                await Task.Delay((int)delay);
+            }
+
             return Results.Ok(movies);
         }
         catch (Exception ex)
@@ -39,12 +49,23 @@ public static class MoviesEndpoints
         }
     }
 
-    private static IResult LoadMovieById(MoviesData data, int id)
+    private static async Task<IResult> LoadMovieById(MoviesData data, int id, int? delay)
     {
         try
         {
             var movie = data.Movies.SingleOrDefault(m => m.Id == id);
-            
+
+            if (delay is not null)
+            {
+                // Max delay of 5 minutes (300000 ms)
+                if (delay > 300000)
+                {
+                    delay = 300000;
+                }
+
+                await Task.Delay((int)delay);
+            }
+
             if (movie is null)
             {
                 return Results.NotFound($"{id} does not exist in the list of movies");
