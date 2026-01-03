@@ -15,6 +15,7 @@ app.MapAllHealthChecks();
 
 app.ApplyCorsConfig();
 app.AddRootEndpoints();
+app.AddErrorEndpoints();
 app.AddMoviesEndpoints();
 
 app.Run();
